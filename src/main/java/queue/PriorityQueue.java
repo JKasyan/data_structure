@@ -36,6 +36,6 @@ public class PriorityQueue<T extends Comparable<T>> {
 
     @Override
     public String toString() {
-        return "PriorityQueue[" + Arrays.toString(elements) + "]";
+        return "PriorityQueue" + Arrays.toString(elements);
     }
 }

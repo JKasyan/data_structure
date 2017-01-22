@@ -32,7 +32,10 @@ public class Stack<T> {
     }
 
     public T pop() {
-        return (T)elements[top--];
+        int pos = top;
+        T topElement = (T)elements[top--];
+        elements[pos] = null;
+        return topElement;
     }
 
     public T peek() {
@@ -45,5 +48,20 @@ public class Stack<T> {
 
     public boolean isEmpty() {
         return top == -1;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append("Stack[");
+        int i = 0;
+        Object el = elements[i];
+        while (el != null) {
+            result.append(el).append(", ");
+            el = elements[++i];
+        }
+        result.setLength(result.length() - 2);
+        result.append("]");
+        return new String(result);
     }
 }

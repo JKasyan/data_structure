@@ -62,4 +62,12 @@ public class StackTest {
         Stack<Integer> stack = new Stack<>(1);
         assertEquals(true, stack.isEmpty());
     }
+
+    @Test
+    public void toStringTest() {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(1);
+        stack.push(2);
+       assertEquals("Stack[1, 2]", stack.toString());
+    }
 }
