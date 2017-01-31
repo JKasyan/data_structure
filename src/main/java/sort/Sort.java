@@ -9,20 +9,14 @@ import java.util.Comparator;
 public class Sort {
 
     public static <T extends Comparable<T>> void bubbleSort(T[] array) {
-        int compositions = 0;
-        int comparisons = 0;
         for(int i = array.length - 1; i > 0; i--) {
             for(int j = 0; j < i;j++) {
                 int comparing = array[j].compareTo(array[j + 1]);
-                comparisons++;
                 if(comparing > 0) {
                     swap(array, j, j + 1);
-                    compositions++;
                 }
             }
         }
-        System.out.println("compositions = " + compositions);
-        System.out.println("comparisons = " + comparisons);
     }
 
     private static <T> void swap(T[] array, int first, int second) {
@@ -36,14 +30,17 @@ public class Sort {
     }
 
     public static <T extends Comparable<T>> void selectionSort(T[] array) {
-        for (int i = 0; i < array.length; i++) {
-            for (int j = i; j < array.length; j++) {
-                if (array[i].compareTo(array[j]) > 0) {
-                    swap(array, i, j);
+        for(int j = 0;j < array.length - 1;j++) {
+            int min = j;
+            for(int k = j + 1;k < array.length;k++) {
+                if(array[min].compareTo(array[k]) > 0) {
+                    min = k;
                 }
             }
+            if(min != j) {
+                swap(array, j, min);
+            }
         }
-        System.out.println(Arrays.toString(array));
     }
 
     public static <T extends Comparable<T>> void insertSort(T[] array) {

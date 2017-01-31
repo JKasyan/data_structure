@@ -28,7 +28,7 @@ public class SortTest {
 
     @Test
     public void insertSort() throws Exception {
-        Integer[] array = randomArrayFactory(100000, 30000);
+        Integer[] array = randomArrayFactory(5, 20);
         Integer[] copyArray = Arrays.copyOfRange(array, 0, array.length);
         Arrays.sort(copyArray);
         Sort.insertSort(array);

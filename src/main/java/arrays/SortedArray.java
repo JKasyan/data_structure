@@ -44,6 +44,10 @@ public class SortedArray<T extends Comparable<T>> {
     public int find(T value) {
         int minIndex = 0;
         int maxIndex = size - 1;
+        return binaryFind(value, minIndex, maxIndex);
+    }
+
+    private int binaryFind(T value, int minIndex, int maxIndex) {
         while (true) {
             int middleIndex = (maxIndex + minIndex) >> 1;
             int comparing = elements[middleIndex].compareTo(value);
@@ -53,9 +57,9 @@ public class SortedArray<T extends Comparable<T>> {
                 return -1;
             } else {
                 if(comparing > 0) {
-                    maxIndex = middleIndex - 1;
+                    return binaryFind(value, minIndex, middleIndex - 1);
                 } else {
-                    minIndex = middleIndex + 1;
+                    return binaryFind(value, middleIndex + 1,maxIndex);
                 }
             }
         }
