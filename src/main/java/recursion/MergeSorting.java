@@ -5,32 +5,23 @@ package recursion;
  */
 public class MergeSorting {
 
-    public static int[] sort(int[] a, int[] b) {
-        int size = a.length > b.length ? a.length : b.length;
-        int min = a.length > b.length ? b.length : a.length;
-        int[] res = new int[size];
-        int posA = 0, posB = 0, pos = 0;
-        while (min != pos) {
+    public static int[] sort(int[]a, int[]b) {
+        int[] res = new int[a.length + b.length];
+        int posA = 0, posB = 0, posResult = 0;
+        while (posA < a.length && posB < b.length) {
             if(a[posA] > b[posB]) {
-                res[pos] = b[posB];
-                posB++;
+                res[posResult++] = b[posB++];
             } else {
-                res[pos] = a[posA];
-                posA++;
+                res[posResult++] = a[posA++];
             }
-            pos++;
         }
-        if(posA > posB) {
-            copyTail(res, a, posB, posA);
-        } else {
-            copyTail(res, b, posA, posB);
+        while (posA < a.length) {
+            res[posResult++] = a[posA++];
+        }
+        while (posB < b.length) {
+            res[posResult++] = b[posB++];
         }
         return res;
     }
 
-    private static void copyTail(int[] result, int[] target, int begin, int end) {
-        for (int i = begin; i < end; i++) {
-            result[i] = target[i];
-        }
-    }
 }
