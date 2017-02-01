@@ -5,7 +5,7 @@ package recursion;
  */
 public class MergeSorting {
 
-    public static int[] sort(int[]a, int[]b) {
+    public static int[] merge(int[]a, int[]b) {
         int[] res = new int[a.length + b.length];
         int posA = 0, posB = 0, posResult = 0;
         while (posA < a.length && posB < b.length) {

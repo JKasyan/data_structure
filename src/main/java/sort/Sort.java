@@ -1,5 +1,6 @@
 package sort;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -25,7 +26,7 @@ public class Sort {
         array[first] = buffer;
     }
 
-    public static <T> void bubbleSort(T[] array, Comparator<? super T> comparator) {
+    public static <T> void bubbleSortWithComparator(T[] array, Comparator<? super T> comparator) {
         throw new UnsupportedOperationException("Not supported yet");
     }
 
@@ -53,6 +54,38 @@ public class Sort {
                     break;
                 }
             }
+        }
+    }
+
+    public static <T extends Comparable<T>> T[] mergeSort(Comparable<T>[] array, Class<T> clazz) {
+        T[] targetArray = (T[])Array.newInstance(clazz, array.length);
+        recMergeSort(targetArray, (T[])array, 0, array.length - 1);
+        return targetArray;
+    }
+
+    private static <T extends Comparable<T>> void recMergeSort(T[] targetArray, T[] array, int lower, int upper) {
+        if(lower == upper) {
+            return;
+        } else {
+            int middle = (lower + upper) >> 1;
+            recMergeSort(targetArray, array, lower, middle);
+            recMergeSort(targetArray, array, middle + 1, upper);
+            merge(targetArray, array, lower, middle + 1, upper);
+        }
+    }
+
+    private static <T extends Comparable<T>> void merge(T[] target, T[] res, int low, int high, int upper) {
+        System.out.println(Arrays.toString(target));
+        int middle = high - 1;
+        int pos = 0;
+        while (low <= middle && high <= upper) {
+            target[pos++] = res[low].compareTo(res[high]) > 0 ? res[high++] : res[low++];
+        }
+        while (low <= middle) {
+            target[pos++] = res[low++];
+        }
+        while (high <= upper) {
+            target[pos++] = res[high++];
         }
     }
 }

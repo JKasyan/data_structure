@@ -3,6 +3,7 @@ package sort;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Random;
 
 import static org.junit.Assert.assertArrayEquals;
@@ -26,6 +27,12 @@ public class SortTest {
         assertArrayEquals(new Integer[]{1, 3, 8, 20}, array);
     }
 
+    @Test(expected = UnsupportedOperationException.class)
+    public void bubbleSortWithComparatorTest() {
+        Comparator<Integer> comparator = (d1, d2) -> d1.compareTo(d2) > 0 ? d1.compareTo(d2) == 0 ? 0 : -1 : 1;
+        Sort.bubbleSortWithComparator(new Integer[]{}, comparator);
+    }
+
     @Test
     public void insertSort() throws Exception {
         Integer[] array = randomArrayFactory(5, 20);
@@ -42,6 +49,20 @@ public class SortTest {
             array[i] = random.nextInt(maxValue);
         }
         return array;
+    }
+
+    private <T extends Comparable<T>> T[] copyArray(T[] array) {
+        return Arrays.copyOfRange(array, 0, array.length);
+    }
+
+    @Test
+    public void mergeSortTest() throws Exception {
+        Integer[] array = randomArrayFactory(5, 100);
+        Integer[] result = Sort.mergeSort(array, Integer.class);
+        System.out.println(Arrays.toString(result));
+        Integer[] copyArray = copyArray(array);
+        Arrays.sort(copyArray);
+        assertArrayEquals(copyArray, result);
     }
 
 }
