@@ -21,3 +21,5 @@
 (defn triangle [number] (Recursion/triangleStack number))
 
 (println (triangle 4))
+
+(println (Math/pow 2 2))

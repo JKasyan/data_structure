@@ -30,4 +30,8 @@ public class Recursion {
         }
         return result;
     }
+
+    public static long pow(int a, int b) {
+        return b == 1 ? a : pow(a * a, b >> 1);
+    }
 }

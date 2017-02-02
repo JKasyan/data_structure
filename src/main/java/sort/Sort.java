@@ -57,10 +57,9 @@ public class Sort {
         }
     }
 
-    public static <T extends Comparable<T>> T[] mergeSort(Comparable<T>[] array, Class<T> clazz) {
+    public static <T extends Comparable<T>> void mergeSort(Comparable<T>[] array, Class<T> clazz) {
         T[] targetArray = (T[])Array.newInstance(clazz, array.length);
         recMergeSort(targetArray, (T[])array, 0, array.length - 1);
-        return targetArray;
     }
 
     private static <T extends Comparable<T>> void recMergeSort(T[] targetArray, T[] array, int lower, int upper) {
@@ -86,6 +85,10 @@ public class Sort {
         }
         while (high <= upper) {
             target[pos++] = res[high++];
+        }
+        int n = upper - low  + 1;
+        for(pos = 0;pos<n;pos++) {
+            res[low + pos] = target[pos];
         }
     }
 }

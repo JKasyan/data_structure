@@ -20,4 +20,10 @@ public class RecursionTest {
         assertEquals(10, res);
     }
 
+    @Test
+    public void powTest() {
+        long pow = Recursion.pow(2, 3);
+        System.out.println(pow);
+    }
+
 }
