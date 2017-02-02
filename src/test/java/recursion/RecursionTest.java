@@ -14,4 +14,10 @@ public class RecursionTest {
         assertEquals(10 , triangle);
     }
 
+    @Test
+    public void triangleStackTest() {
+        int res = Recursion.triangleStack(4);
+        assertEquals(10, res);
+    }
+
 }

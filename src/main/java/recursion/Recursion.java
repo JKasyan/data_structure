@@ -1,5 +1,7 @@
 package recursion;
 
+import stack.Stack;
+
 /**
  * Created by kasyan on 1/29/17.
  */
@@ -15,5 +17,17 @@ public class Recursion {
             System.out.println("Returning " + res);
             return res;
         }
+    }
+
+    public static int triangleStack(int n) {
+        Stack<Integer> stack = new Stack<>();
+        while (n > 0) {
+            stack.push(n--);
+        }
+        int result = 0;
+        while (!stack.isEmpty()) {
+            result += stack.pop();
+        }
+        return result;
     }
 }
