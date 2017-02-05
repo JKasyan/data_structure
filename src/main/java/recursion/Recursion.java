@@ -32,6 +32,14 @@ public class Recursion {
     }
 
     public static long pow(int a, int b) {
-        return b == 1 ? a : pow(a * a, b >> 1);
+        long res;
+        if(b == 0) {
+            System.out.println("Return 1");
+            res = 1;
+        } else {
+            res = a * pow(a, b - 1);
+            System.out.println("Return " + res);
+        }
+        return res;
     }
 }

@@ -1,5 +1,8 @@
 package sort;
 
+import linked.collections.LinkedStack;
+import linked.collections.Stack;
+
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -89,6 +92,41 @@ public class Sort {
         int n = upper - low  + 1;
         for(pos = 0;pos<n;pos++) {
             res[low + pos] = target[pos];
+        }
+    }
+
+    private static Stack<Integer> factor(int size) {
+        Stack<Integer> stack = new LinkedStack<>();
+        int number = 1;
+        stack.push(number);
+        while (true) {
+            number = 3 * number + 1;
+            if(number < size) {
+                stack.push(number);
+            } else {
+                break;
+            }
+        }
+        return stack;
+    }
+
+    public static <T extends Comparable<T>> void shellSort(T[] array) {
+        int h = 1, j;
+        T temp;
+        while (h <= array.length / 3) {
+            h = h * 3 + 1;
+        }
+        while (h > 0) {
+            for(int i = h; i < array.length;i++) {
+                temp = array[i];
+                j = i;
+                while (j > h - 1 && array[j - 1].compareTo(temp) > 0) {
+                    array[j] = array[j - h];
+                    j -= h;
+                }
+                array[j] = temp;
+            }
+            h = (h - 1) / 3;
         }
     }
 }

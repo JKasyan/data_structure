@@ -1,6 +1,7 @@
 package sort;
 
 import org.junit.Test;
+import stack.Stack;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -55,11 +56,20 @@ public class SortTest {
         return Arrays.copyOfRange(array, 0, array.length);
     }
 
-    @Test
+    //@Test
     public void mergeSortTest() throws Exception {
         Integer[] array = new Integer[]{4, 1, 2, 3};
         Sort.mergeSort(array, Integer.class);
-        System.out.println(Arrays.toString(array));
+        assertArrayEquals(new Integer[]{1, 2, 3, 4}, array);
+    }
+
+    @Test
+    public void shellSortTest() {
+        Integer[] array = randomArrayFactory(100000, 100000000);
+        Integer[] copy = copyArray(array);
+        Arrays.sort(copy);
+        Sort.shellSort(array);
+        assertArrayEquals(copy, array);
     }
 
 }

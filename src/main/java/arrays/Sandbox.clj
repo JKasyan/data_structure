@@ -23,3 +23,10 @@
 (println (triangle 4))
 
 (println (Math/pow 2 2))
+
+;Destruction
+(def v [1 2 "vector" [3 4 5]])
+(let [[x _ _ [_ y z]] v] _(println (+ x (* y z))))
+
+(def s "string")
+(let [[x y] s] (println x y))

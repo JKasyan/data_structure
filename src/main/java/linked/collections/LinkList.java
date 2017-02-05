@@ -28,6 +28,10 @@ public class LinkList<T extends Comparable<T>> {
         return temp.value;
     }
 
+    public T readFirst() {
+        return first.value;
+    }
+
     public boolean isEmpty() {
         return first == null;
     }
