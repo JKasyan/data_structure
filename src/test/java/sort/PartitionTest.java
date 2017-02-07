@@ -11,13 +11,14 @@ import static org.junit.Assert.assertArrayEquals;
  */
 public class PartitionTest {
 
+    private static final String ARRAY_NUMBERS = "149 192 47 152 159 195 61 66 17 167 118 64 27 80 30 105";
+    private static final String ARRAY_NUMBERS_EXPECTED = "30 80 47 27 64 17 61 66 195 167 118 159 152 192 149 105";
+
     @Test
     public void partition() throws Exception {
-        String arrayNumbersStringData = "149 192 47 152 159 195 61 66 17 167 118 64 27 80 30 105";
-        Integer[] numbers = stringOfNumbersToArray(arrayNumbersStringData);
+        Integer[] numbers = stringOfNumbersToArray(ARRAY_NUMBERS);
         Partition.myPartition(numbers, 99);
-        String arrayNumbersStringExpected = "30 80 47 27 64 17 61 66 195 167 118 159 152 192 149 105";
-        Integer[] numbersExpected = stringOfNumbersToArray(arrayNumbersStringExpected);
+        Integer[] numbersExpected = stringOfNumbersToArray(ARRAY_NUMBERS_EXPECTED);
         assertArrayEquals(numbersExpected, numbers);
     }
 
@@ -25,6 +26,15 @@ public class PartitionTest {
         return Arrays.stream(numbers.split(" "))
                 .map(Integer::valueOf)
                 .toArray(Integer[]::new);
+    }
+
+    @Test
+    public void partitionTest() {
+        Integer[] numbers = stringOfNumbersToArray(ARRAY_NUMBERS);
+        Partition.partition(numbers, 99);
+        Integer[] numbersExpected = stringOfNumbersToArray(ARRAY_NUMBERS_EXPECTED);
+        assertArrayEquals(numbersExpected, numbers);
+        
     }
 
 }

@@ -31,7 +31,7 @@ public class Partition {
     }
 
     public static void partition(Integer[] array, long pivot) {
-        int leftPartition = 1;
+        int leftPartition = -1;
         int rightPartition = array.length;
         while (true) {
             while (leftPartition < array.length - 1 && array[++leftPartition] < pivot);
