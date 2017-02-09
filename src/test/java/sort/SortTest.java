@@ -43,7 +43,7 @@ public class SortTest {
         assertArrayEquals(copyArray, array);
     }
 
-    private Integer[] randomArrayFactory(int maxSize, int maxValue) {
+    public Integer[] randomArrayFactory(int maxSize, int maxValue) {
         Random random = new Random();
         Integer[] array = new Integer[maxSize];
         for(int i = 0; i < maxSize; i++) {
