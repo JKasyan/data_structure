@@ -57,5 +57,15 @@ public class BinaryTree<T extends Comparable<T>> {
         }
     }
 
+    public void inOrder() {
+        recInOrder(root);
+    }
 
+    private void recInOrder(Node node) {
+        if (node != null) {
+            recInOrder(node.leftNode);
+            System.out.println(node.value);
+            recInOrder(node.rightNode);
+        }
+    }
 }
