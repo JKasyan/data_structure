@@ -15,6 +15,11 @@ public class BinaryTree<T extends Comparable<T>> {
         Node(T value) {
             this.value = value;
         }
+
+        @Override
+        public String toString() {
+            return "Node{value = " + value + " }";
+        }
     }
 
     public T find(T element) {
@@ -67,5 +72,95 @@ public class BinaryTree<T extends Comparable<T>> {
             System.out.println(node.value);
             recInOrder(node.rightNode);
         }
+    }
+
+    public T minimum() {
+        Node current = root;
+        while (current.leftNode != null) {
+            current = current.leftNode;
+        }
+        return current.value;
+    }
+
+    public T maximum() {
+        Node current = root;
+        Node last = null;
+        while (current != null) {
+            last = current;
+            current = current.rightNode;
+        }
+        return last.value;
+    }
+
+    public boolean delete(T key) {
+        Node current = root;
+        Node parent = null;
+        boolean isLeft = false;
+        while (!key.equals(current.value)) {
+            parent = current;
+            if(key.compareTo(current.value) < 0) {
+                isLeft = true;
+                current = current.leftNode;
+            } else {
+                isLeft = false;
+                current = current.rightNode;
+            }
+            if(current == null) {
+                return false;
+            }
+        }
+        System.out.println(current.value);
+        if(current.leftNode == null && current.rightNode == null) {
+            if(current == root) {
+                root = null;
+            } else if(isLeft){
+                parent.leftNode = null;
+            } else {
+                parent.rightNode = null;
+            }
+        } else if (current.leftNode == null) {
+            if(current == root) {
+                root = current.rightNode;
+            } else if(isLeft) {
+                parent.leftNode = current.rightNode;
+            } else {
+                parent.rightNode = current.rightNode;
+            }
+        } else if (current.rightNode == null) {
+            if(current == root) {
+              root = current.leftNode;
+            } else if(isLeft) {
+                parent.leftNode = current.leftNode;
+            } else {
+                parent.rightNode = current.leftNode;
+            }
+        } else {
+            Node successor = getSuccessor(current);
+            if(current == root) {
+                root = successor;
+            } else if(isLeft) {
+                parent.leftNode = successor;
+            } else {
+                parent.rightNode = successor;
+            }
+            successor.leftNode = current.leftNode;
+        }
+        return true;
+    }
+
+    private Node getSuccessor(Node delNode) {
+        Node successorParent = delNode;
+        Node successor = delNode;
+        Node current = delNode.rightNode;
+        while (current != null) {
+            successorParent = successor;
+            successor = current;
+            current = current.leftNode;
+        }
+        if(successorParent != delNode.rightNode) {
+            successorParent.leftNode = successor.rightNode;
+            successor.rightNode = delNode.rightNode;
+        }
+        return successor;
     }
 }
