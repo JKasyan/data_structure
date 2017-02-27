@@ -4,7 +4,6 @@ import org.junit.Test;
 import sort.SortTest;
 
 import java.util.Arrays;
-import java.util.TreeSet;
 
 import static org.junit.Assert.*;
 
