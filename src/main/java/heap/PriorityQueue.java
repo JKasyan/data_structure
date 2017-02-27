@@ -10,12 +10,16 @@ public class PriorityQueue<E extends Comparable<E>> {
 
     private static class Node<E> {
         E value;
-        Node parent;
-        Node leftChild;
-        Node rightChild;
 
         Node(E value) {
             this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "value=" + value +
+                    '}';
         }
     }
 
@@ -24,28 +28,58 @@ public class PriorityQueue<E extends Comparable<E>> {
     }
 
     public PriorityQueue(int size) {
-        this.nodes = new Node[10];
+        this.nodes = new Node[size];
     }
 
     public void insert(E el) {
+        Node node = new Node(el);
         if(size == 0) {
-            nodes[0] = new Node(el);
+            nodes[0] = node;
+            size++;
         } else {
-            nodes[size++] = new Node(el);
-            int i = size;
-            while(i > 0) {
-                int parentPos = (size - 1) / 2;
+            nodes[size++] = node;
+            int pos = size - 1;
+            while(pos > 0) {
+                int parentPos = (pos - 1) / 2;
                 Node par = nodes[parentPos];
                 Comparable<E> parentValue = (Comparable<E>)par.value;
-                if(parentValue.compareTo(el) <= 0) {
+                int comp = parentValue.compareTo(el);
+                if(comp > 0) {
                     break;
                 }
-                i--;
+                nodes[pos] = nodes[parentPos];
+                pos = parentPos;
             }
+            nodes[pos] = node;
         }
     }
 
-    private void swap() {
+    public E pop() {
+        E pop = (E)nodes[0].value;
+        nodes[0] = nodes[size - 1];
+        Node temp = nodes[0];
+        Comparable tempValue = (Comparable)temp.value;
+        int pos = 0;
+        while (tempValue.compareTo(nodes[pos].value) <= 0) {
+            int leftPos = 2 * pos + 1;
+            Comparable left = (Comparable)nodes[leftPos].value;
+            Comparable right = (Comparable)nodes[leftPos + 1].value;
+            if(left.compareTo(right) > 0) {
+                nodes[pos] = nodes[leftPos];
+                pos = leftPos;
+            } else {
+                nodes[pos] = nodes[leftPos + 1];
+                pos = leftPos + 1;
+            }
+        }
+        return pop;
+    }
 
+    public E peek() {
+        return (E)nodes[0].value;
+    }
+
+    public boolean isEmpty() {
+        return size == 0;
     }
 }
