@@ -32,6 +32,9 @@ public class PriorityQueue<E extends Comparable<E>> {
     }
 
     public void insert(E el) {
+        if(size == nodes.length) {
+            ensureCapacity();
+        }
         Node node = new Node(el);
         if(size == 0) {
             nodes[0] = node;
@@ -54,24 +57,43 @@ public class PriorityQueue<E extends Comparable<E>> {
         }
     }
 
+    private void ensureCapacity() {
+        int newSize = size << 1;
+        Node[] newNodes = new Node[newSize];
+        System.arraycopy(nodes, 0, newNodes, 0, size);
+        nodes = newNodes;
+    }
+
     public E pop() {
         E pop = (E)nodes[0].value;
         nodes[0] = nodes[size - 1];
+        nodes[size - 1] = null;
+        size--;
         Node temp = nodes[0];
         Comparable tempValue = (Comparable)temp.value;
         int pos = 0;
-        while (tempValue.compareTo(nodes[pos].value) <= 0) {
+        while (pos < size && tempValue.compareTo(nodes[pos].value) <= 0) {
             int leftPos = 2 * pos + 1;
-            Comparable left = (Comparable)nodes[leftPos].value;
-            Comparable right = (Comparable)nodes[leftPos + 1].value;
+            int rightPos = leftPos + 1;
+            if(leftPos > nodes.length | rightPos > nodes.length) {
+                break;
+            }
+            Node leftNode = nodes[leftPos];
+            Node rightNode = nodes[rightPos];
+            if(leftNode == null && rightNode == null) {
+                break;
+            }
+            Comparable left = (Comparable)leftNode.value;
+            Comparable right = (Comparable)rightNode.value;
             if(left.compareTo(right) > 0) {
                 nodes[pos] = nodes[leftPos];
                 pos = leftPos;
             } else {
-                nodes[pos] = nodes[leftPos + 1];
-                pos = leftPos + 1;
+                nodes[pos] = nodes[rightPos];
+                pos = rightPos;
             }
         }
+        nodes[pos] = temp;
         return pop;
     }
 
