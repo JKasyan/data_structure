@@ -3,6 +3,8 @@ package graph;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.lang.reflect.Field;
 
 import static org.junit.Assert.*;
@@ -42,7 +44,30 @@ public class GraphTest {
 
     @Test
     public void dfsTest() throws Exception {
+        ByteArrayOutputStream byteArrayOutputStream = newByteArrayOutputStream();
         graph.dfs(System.out::println);
+        String expected = "Vertex{label=A}\n" +
+                "Vertex{label=B}\n" +
+                "Vertex{label=D}\n" +
+                "Vertex{label=C}\n";
+        assertEquals(expected, byteArrayOutputStream.toString());
+    }
+
+    private ByteArrayOutputStream newByteArrayOutputStream() {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(byteArrayOutputStream));
+        return byteArrayOutputStream;
+    }
+
+    @Test
+    public void bfsTest() throws Exception {
+        ByteArrayOutputStream byteArrayOutputStream = newByteArrayOutputStream();
+        graph.bsf(System.out::println);
+        String expected = "Vertex{label=A}\n" +
+                "Vertex{label=B}\n" +
+                "Vertex{label=C}\n" +
+                "Vertex{label=D}\n";
+        assertEquals(expected, byteArrayOutputStream.toString());
     }
 
 }

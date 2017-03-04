@@ -1,5 +1,6 @@
 package graph;
 
+import queue.Queue;
 import stack.Stack;
 
 import java.util.function.Consumer;
@@ -14,7 +15,7 @@ public class Graph {
     private byte[][] edgeMatrix;
     private int nVertexes;
 
-    private class Vertex {
+    private static class Vertex {
 
         char label;
         boolean wasVisited = false;
@@ -62,6 +63,9 @@ public class Graph {
         return -1;
     }
 
+    /**
+     * Depth-first search
+     */
     public void dfs(Consumer<Object> consumer) {
         Stack<Integer> stack = new Stack<>();
         stack.push(0);
@@ -77,5 +81,32 @@ public class Graph {
                 stack.push(v);
             }
         }
+        throwCounters();
+    }
+
+    private void throwCounters() {
+        for(int i = 0;i < nVertexes;i++) {
+            vertexList[i].setWasVisited(false);
+        }
+    }
+
+    /**
+     * Breadth-first search
+     */
+    public void bsf(Consumer<Object> consumer) {
+        Queue<Integer> queue = new Queue<>(MAX_VERTEX);
+        consumer.accept(vertexList[0]);
+        queue.insert(0);
+        vertexList[0].setWasVisited(true);
+        int v2;
+        while (!queue.isEmpty()) {
+            int v1 = queue.remove();
+            while ( (v2 = getUnvisitedVertex(v1)) != -1) {
+                vertexList[v2].setWasVisited(true);
+                queue.insert(v2);
+                consumer.accept(vertexList[v2]);
+            }
+        }
+        throwCounters();
     }
 }
